@@ -13,7 +13,7 @@ def stock():
     print("2)Back")
 
 def print_cart():
-    print("Products in cart:")
+    print("Products in cart:\n")
     print(f"{'   Food':<13} Price")
     print("____________________")
     number = 0
@@ -28,13 +28,13 @@ def cart_option():
 def remove():
     print_cart()
     remove = int(input("What product do you want to remove?\n> "))
-    cart.pop(remove-1)
+    if remove > 0 and remove < (len(cart)+1):
+        cart.pop(remove-1)
+    else:
+        print("Invalid input. Please try again.")
 
 def checkout():
-    print("Cart")
+    print_cart()
 
-
-
-print_cart()
-remove()
-print_cart()
+while True:
+    remove()
