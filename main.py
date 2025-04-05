@@ -1,6 +1,9 @@
-user = []
 food_choices = [["takis", 7], ["milk", 6], ["butter", 8], ["eggs", 10], ["cheese", 12], ["cereal", 8], ["chicken", 10], ["steak", 20]]
 cart = [["beans", 2], ["toast", 7]]
+user = []
+
+
+
 
 def menu():
     print("1)Shop")
@@ -60,9 +63,26 @@ def checkout():
         print("still working")
 
 def user_info():
-    print("1) Click an collect.") 
+    print("1) Click and collect.") 
     print("2) Home delivery.")
     choice = int(input("> "))
-    if choice == 
+    if choice == 1:
+        print("click and collect")
 
-user_info()
+def click_and_collect():
+    
+    user_name = input("Please enter your first and last name\n> ")
+
+
+def phone():
+    phone = int(input("Please enter your phone number\n> (64+) "))
+    if len(str(phone)) > 10:
+        print("Invalid input, the phone number you have entered is more than 10 units long. Please try again.")
+    elif len(str(phone)) < 10:
+        print("Invalid input, the phone number you have entered is less than 10 units long. Please try again.")
+    elif len(str(phone)) == 10:
+        print("all good")
+    else:
+        print("idk")
+
+phone()
