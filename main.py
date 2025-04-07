@@ -1,4 +1,4 @@
-"""This project will be a place where you can buy stuff from a supermarket. You can add items to your cart, view your cart, remove items, checkout, choose if you want to click and collect or have it home delivered, see how much money it costs in total. """
+"""This project will be a place where you can buy stuff from a supermarket. You can add items to your cart, view your cart, remove items, checkout, choose if you want to click and collect or have it home delivered, see how much money it costs in total."""
 
 import sys
 import os
@@ -157,7 +157,7 @@ def calculate_cost(user_cart):
     """This calculates the total amount all the products cost in the users cart and send returns it to 'total_cost'."""
     cost = 0
     for i in user_cart:
-        cost = cost + i[1] # this "i[i]" only takes the second value of the 2d list e.g. cheeze, 7 it will take the 7 and it to the cost. this will be repeted for all the products in the cart.
+        cost = cost + i[1]  # this "i[i]" only takes the second value of the 2d list e.g. cheeze, 7 it will take the 7 and it to the cost. this will be repeted for all the products in the cart.
     return cost
 
 
@@ -259,7 +259,6 @@ def main():
                                     value_error_message()
                         else:
                             error_message()
-                    
                     except ValueError:
                         value_error_message()
             elif choice == 4:
