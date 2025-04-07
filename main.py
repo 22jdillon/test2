@@ -5,8 +5,7 @@ import os
 
 
 food_choices = [["takis", 7], ["milk", 6], ["butter", 8], ["eggs", 10], ["cheese", 12], ["cereal", 8], ["chicken", 10], ["steak", 20]]
-cart = [["takis", 7], ["milk", 6]]
-user = []
+cart = []
 addresses = []
 
 
