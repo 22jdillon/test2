@@ -1,3 +1,5 @@
+"""This project will be a place where you can buy stuff from a supermarket. You can add items to your cart, view your cart, remove items, checkout, choose if you want to click and collect or have it home delivered, see how much money it costs in total. """
+
 import sys
 import os
 
@@ -9,19 +11,20 @@ addresses = []
 
 
 def clear():
+    """This clears the terminal."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def menu():
+    """This prints all options for home page."""
     print("1)Shop")
     print("2)View cart")
     print("3)Checkout")
     print("4)Exit")
 
-def stock():
-    print("1)Add product")
-    print("2)Back")
 
 def print_cart():
+    """This prints the users cart in a nice table way, showing the name and price of the product."""
     clear()
     print("Products in cart:\n")
     print(f"{'   Food':<13} Price")
@@ -31,12 +34,16 @@ def print_cart():
         number = number + 1
         print(f"{number}) {food:<10} ${price:.2f}")
 
+
 def cart_options():
+    """This shows all options that you can do in te view cart menu."""
     print("")
     print("1)remove item")
     print("2)continue shopping")
 
+
 def remove():
+    """This removes products from cart."""
     while True:
         clear()
         print_cart()
@@ -49,9 +56,10 @@ def remove():
                 error_message()
         except ValueError:
             value_error_message()
-        
+
 
 def print_food():
+    """This prints all foods the user can add to their cart as well as their price while displaying it in a table."""
     print(f"{'   Food':<13} Price")
     print("____________________")
     number = 0
@@ -59,7 +67,9 @@ def print_food():
         number = number + 1
         print(f"{number}) {food:<10} ${price:.2f} ")
 
+
 def add():
+    """This allows the user to add food to their cart."""
     while True:
         clear()
         print_food()
@@ -74,19 +84,16 @@ def add():
         except ValueError:
             value_error_message()
 
+
 def checkout():
+    """This shows users the possible options at the checkout menu."""
     print_cart()
     print("\n1) Contine shopping.")
     print("2) Checkout.")
 
-def user_info():
-    print("1) Click and collect.") 
-    print("2) Home delivery.")
-    choice = int(input("> "))
-    if choice == 1:
-        print("click and collect")
 
 def deliver():
+    """This collects information about the user for when they select the deliver at checkouts."""
     clear()
     name = input("Please enter your first and last name:\n> ")
     clear()
@@ -96,11 +103,12 @@ def deliver():
     clear()
     city = input("Enter your city:\n> ")
     clear()
-
     address = [name, street, house_number, city]
     return address
 
-def user_details(prompt="Please enter your phone number\n> "):
+
+def click_and_collect(prompt="Please enter your phone number\n> "):
+    """This collects information about the user for when they select the click and collect at checkouts."""
     while True:
         clear()
         name = input("What is your first and last name\n> ")
@@ -119,7 +127,6 @@ def user_details(prompt="Please enter your phone number\n> "):
                 error_message()
         except ValueError:
             value_error_message()
-
     while True:
         try:
             clear()
@@ -135,34 +142,44 @@ def user_details(prompt="Please enter your phone number\n> "):
                 total_cost = calculate_cost(cart)
                 print(f"Thank you for shopping with us {user_name}!\nYou will be contacted threw your phone number ({phone}) when your order is ready for pickup and you will need to pay ${total_cost} when you arrive at the store.")
                 sys.exit()
-
-                
         except ValueError:
             value_error_message()
 
+
 def delivery_or_pickup():
+    """This shows the user the possible awnsers after they confurmed they want to checkout."""
     print("Would you rather want to pick up your order or have it delivered?\n")
     print("1) Click and Collect")
     print("2) Deliver")
 
+
 def calculate_cost(user_cart):
+    """This calculates the total amount all the products cost in the users cart and send returns it to 'total_cost'."""
     cost = 0
     for i in user_cart:
-        cost = cost + i[1]
+        cost = cost + i[1] # this "i[i]" only takes the second value of the 2d list e.g. cheeze, 7 it will take the 7 and it to the cost. this will be repeted for all the products in the cart.
     return cost
 
+
 def error_message():
+    """This is a error message for when the user enters the right data type but wrong e.g. the possible inputs are 1 and 2, if the user enters 3 this error message wil be used."""
     print("\nInvalid input.")
     input("Press any button to contine\n> ")
 
+
 def input_continue():
+    """This is a contine button."""
     input("Press any button to contine\n> ")
 
+
 def value_error_message():
+    """This is a error message for when the user enters a wrong data type."""
     print("\nInvalid input. Please enter digits only.")
     input("Press any button to contine\n> ")
 
-def main2():
+
+def main():
+    """This is all of the code."""
     while True:
         clear()
         menu()
@@ -187,11 +204,6 @@ def main2():
                             error_message()
                     except ValueError:
                         value_error_message()
-            
-            
-            
-            
-            
             elif choice == 3:
                 while True:
                     clear()
@@ -200,9 +212,6 @@ def main2():
                         choice = int(input("> "))
                         if choice == 1:
                             break
-                        
-                        
-                        
                         elif choice == 2:
                             while True:
                                 clear()
@@ -210,7 +219,7 @@ def main2():
                                 try:
                                     choice = int(input("> "))
                                     if choice == 1:
-                                        user_details()
+                                        click_and_collect()
                                     elif choice == 2:
                                         while True:
                                             try:
@@ -242,20 +251,12 @@ def main2():
                                                     print("")
                                                 else:
                                                     error_message()
-                                                
-                                            
-                                            
                                             except ValueError:
                                                 value_error_message()
                                     else:
                                         error_message()
                                 except ValueError:
                                     value_error_message()
-
-
-
-
-
                         else:
                             error_message()
                     
@@ -265,24 +266,10 @@ def main2():
                 clear()
                 print("Goodbye!")
                 sys.exit()
-
-
-
-            
-            
             else:
                 error_message()
         except ValueError:
             value_error_message()
 
 
-                          
-
-                            
-
-
-     
-
-
-main2()
- 
+main()
