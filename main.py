@@ -1,13 +1,17 @@
+import sys
+import os
+
+
 food_choices = [["takis", 7], ["milk", 6], ["butter", 8], ["eggs", 10], ["cheese", 12], ["cereal", 8], ["chicken", 10], ["steak", 20]]
 cart = []
 user = []
 addresses = []
 
 
-
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def menu():
-    print("")
     print("1)Shop")
     print("2)View cart")
     print("3)Checkout")
@@ -68,15 +72,26 @@ def user_info():
         print("click and collect")
 
 def deliver():
-    name = input("Please enter your first and last name\n> ")
-    street = input("Please eneter your streets name\n> ")
-    house_number = input("Please enter your house number\n> ")
-    city = input("Enter your city\n> ")
+    name = input("Please enter your first and last name:\n> ")
+    street = input("Please enter your street name:\n> ")
+    house_number = input("Please enter your house number:\n> ")
+    city = input("Enter your city:\n> ")
 
     address = [name, street, house_number, city]
-    addresses.append(address)
+    return address
 
-def phone(prompt="Please enter your phone number\n> "):
+def user_details(prompt="Please enter your phone number\n> "):
+    while True:
+        name = input("What is your first and last name\n> ")
+        print(f"Is {name} correct?")
+        print("1) yes")
+        print("2) no")
+        choice = int(input("> "))
+        if choice == 1:
+            break
+        if choice == 2:
+            print("")
+
     while True:
         try:
             phone = int(input(prompt))
@@ -86,6 +101,7 @@ def phone(prompt="Please enter your phone number\n> "):
                 print("Invalid input, the phone number you have entered is less than 10 units long. Please try again.")
             else:
                 print("checkout")
+                
         except ValueError:
             print("Invalid number. Please enter digits only.")
 
@@ -100,36 +116,80 @@ def calculate_cost(user_cart):
         cost = cost + i[1]
     return cost
 
+def error_message():
+    print("\nInvalid number. Please enter digits only.")
+    input("Press any button to contine\n> ")
 
-
+def input_continue():
+    input("\nPress any button to contine\n> ")
 
 def main():
     while True:
+        clear()
         menu()
-        choice = int(input("\nWhat would you like to do?\n> "))
-        if choice == 1:
-            add()
-        elif choice == 2:
-            print_cart()
-        elif choice == 3:
-            checkout()
-            while True:
-                choice = int(input("> "))
-                if choice == 1:
-                    break
-                elif choice == 2:
-                    while True:
-                        delivery_or_pickup()
-                        choice = int(input("> "))
-                        if choice == 1:
-                            print("Click and Collect")
-                        elif choice == 2:
-                            deliver()
+        try:
+            choice = int(input("\nWhat would you like to do?\n> "))
+            if choice == 1:
+                clear()
+                add()
+            elif choice == 2:
+                clear()
+                print_cart()
+                input_continue()
+            elif choice == 3:
+                clear()
+                clear()
+                checkout()
+                while True:
+                    choice = int(input("> "))
+                    if choice == 1:
+                        break
+                    elif choice == 2:
+                        while True:
+                            delivery_or_pickup()
+                            choice = int(input("> "))
+                            if choice == 1:
+                                user_details()
+                                total_cost = calculate_cost(cart)
+                                print(f"The total cost of all your products is ${total_cost}")
+                                print("Thank you for shopping with us! You will be contacted when your products are ready to be picked up")
+                            elif choice == 2:
+                                while True:
+                                    add_address = deliver()
+                                    print(f"Hi {add_address[0]}! You are in {add_address[3]} and live in {add_address[2]} {add_address[1]}. \nIs all of this information correct?")
+                                    print("\n1) Yes")
+                                    print("2) No")
+                                    choice = int(input("> "))
+                                    if choice == 1:
+                                        addresses.append(add_address)
+                                        while True:
+                                            total_cost = calculate_cost(cart)
+                                            print(f"The total cost of all your products is ${total_cost}")
+                                            user_bank = int(input("How much money do you have to pay for grocaries?"))
+                                            if user_bank < total_cost:
+                                                print("you do not have enough money to but these products!")
+                                                break
+                                            if user_bank >= total_cost:
+                                                user_bank = user_bank - total_cost
+                                                print(f"Thank you for shopping with us! Your remaining balance is ${user_bank}.")
+                                                sys.exit()
+                                    if choice == 2:
+                                        print("")
+                    else:
+                        print("Please enter one of the corrosponding numbers")
+
+
+            else:
+                print("Please enter one of the corrosponding numbers")                            
+        except ValueError:
+            error_message()
+                
+                                
+
                             
 
 
+     
+
 
 main()
-
-total_cost = calculate_cost(cart)
-print(f"The total cost of all your products is ${total_cost}")
